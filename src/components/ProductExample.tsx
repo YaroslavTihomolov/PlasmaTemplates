@@ -2,43 +2,35 @@ import React from 'react';
 import {Button} from "@salutejs/plasma-ui";
 import {Header, Product, ProductEntity} from "@salutejs/plasma-temple";
 import {IconCart} from "@salutejs/plasma-icons";
+import {ProductCommon} from "@salutejs/plasma-temple/dist/components/Product/Product@common";
 
-const App = (props:any) => {
+const ProductExample = (props:any) => {
+    console.log(props.props)
+
     const product: ProductEntity<unknown> = {
-        id: 1,
-        name: "Product Name",
-        nameDetails: "string",
-        shortDescription: "string",
+        id: props.props.id,
+        name: props.props.title,
         description: {
-            title: 'string',
-            content: 'string',
+            title: 'Масса',
+            content: props.props.weight + ' грамм',
         },
-        price: 10,
-        oldPrice: 20,
+        price: props.props.price,
         currency: "rub",
-        images: ['https://pizza-sushi.com.ua/sites/default/files/styles/wm_style/public/content/blyudo/blyudo-preview-images/sushi-set-bingo-irpen-bucha-zakaz-dostavka-edy-pizzeria-rich-family_0.jpg?itok=7J2TwyA8/400',
-            'https://cdnn21.img.ria.ru/images/154954/20/1549542056_0:160:3072:1888_600x0_80_0_0_e0c4e5fc6b2de7b670e8b855a0ea0ff0.jpg'],
+        images: [],
         shortDetails: [],
         details: {
-            title: 'Food',
+            title: 'Описание',
             values: [{
-                name: "string",
-                value: "10",
+                name: props.props.description,
             }],
         },
     };
 
     const [variations, setVariations] = React.useState([
         {
-            id: 'color',
-            name: 'Цвет',
-            variations: [' пластик', 'Черный', 'Белый', 'Серый'],
-            activeIndex: 0,
-        },
-        {
             id: 'size',
             name: 'Размер',
-            variations: ['S', 'M', 'L', 'XXL'],
+            variations: ['20см', '25см', '30см', '40см'],
             activeIndex: 0,
         },
     ]);
@@ -61,24 +53,27 @@ const App = (props:any) => {
     }
 
     return (
-        <>
+        <div className="product-wrapper">
             <Header back>
                 <Button size="s" view="clear" contentLeft={<IconCart/>} text="Корзина"/>
             </Header>
-            <Product
+            <ProductCommon
                 actionButtonProps={{
                     actionButtonText: 'Добавить в корзину',
                     onClick: action('onActionButtonClick'),
                     autoFocus: true,
+                    className: 'small-button',
                 }}
                 variations={variations}
                 onChangeVariation={onChangeVariation}
                 recommendations={{title: 'Похожие товары', items: []}}
                 onClickRecommendation={action('onClickRecommendations')}
                 product={product}
+                defaultImage={props.props.linkImage}
+                className={'product-image'}
             />
-        </>
+        </div>
     );
 };
 
-export default App;
+export default ProductExample;

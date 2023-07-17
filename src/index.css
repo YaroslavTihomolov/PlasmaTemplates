@@ -22,3 +22,19 @@ code {
 .card {
   border-radius: 10px;
 }
+
+.small-button {
+  padding-left: 5px;
+  position: relative;
+}
+
+.product-wrapper {
+  position: relative;
+  width: 1280px;
+  margin: 50px auto;
+  min-height: 100vh;
+}
+
+.product-image {
+  font-size: 24px;
+}
