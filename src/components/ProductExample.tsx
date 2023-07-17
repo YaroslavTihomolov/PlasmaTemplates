@@ -3,7 +3,7 @@ import {Button} from "@salutejs/plasma-ui";
 import {Header, Product, ProductEntity} from "@salutejs/plasma-temple";
 import {IconCart} from "@salutejs/plasma-icons";
 
-const App = () => {
+const App = (props:any) => {
     const product: ProductEntity<unknown> = {
         id: 1,
         name: "Product Name",

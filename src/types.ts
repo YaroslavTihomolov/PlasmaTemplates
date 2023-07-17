@@ -1,7 +1,7 @@
 // types.ts
 
 import { AssistantSmartAppData } from '@salutejs/client';
-import { GalleryPageState, PlasmaAppProps } from '@salutejs/plasma-temple';
+import {GalleryPageState, GridPageState, PageComponent, PlasmaAppProps} from '@salutejs/plasma-temple';
 
 export type AssistantProps = PlasmaAppProps['assistantParams'];
 export type AppHeaderProps = PlasmaAppProps['header'];
@@ -37,3 +37,15 @@ export type AssistantAction = OpenItemAction;
 export interface AssistantDataAction extends AssistantSmartAppData {
     smart_app_data: AssistantAction;
 }
+
+export interface AppState {
+    grid: GridPageState;
+}
+
+export interface AppParams {
+    grid: void;
+}
+
+export type PageProps<K extends keyof AppState> = React.ComponentProps<
+    PageComponent<AppState, K, AppParams>
+>;

@@ -1,10 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
-import { darkSber } from '@salutejs/plasma-tokens/themes'; // Или один из списка: darkEva, darkJoy, lightEva, lightJoy, lightSber
+import { salutejs_sber__dark } from '@salutejs/plasma-tokens/themes';
 import {
-    text, // Цвет текста
-    background, // Цвет подложки
-    gradient, // Градиент
+    text,
+    background,
+    gradient,
 } from '@salutejs/plasma-tokens';
+import React from "react";
 
 const DocumentStyle = createGlobalStyle`
     html {
@@ -13,7 +14,7 @@ const DocumentStyle = createGlobalStyle`
         background-image: ${gradient};
     }
 `;
-const ThemeStyle = createGlobalStyle(darkSber);
+const ThemeStyle = createGlobalStyle(salutejs_sber__dark);
 
 export const GlobalStyle = () => (
     <>
