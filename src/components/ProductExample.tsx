@@ -5,8 +5,6 @@ import {IconCart} from "@salutejs/plasma-icons";
 import {ProductCommon} from "@salutejs/plasma-temple/dist/components/Product/Product@common";
 
 const ProductExample = (props:any) => {
-    console.log(props.props)
-
     const product: ProductEntity<unknown> = {
         id: props.props.id,
         name: props.props.title,
@@ -55,7 +53,7 @@ const ProductExample = (props:any) => {
     return (
         <div className="product-wrapper">
             <Header back>
-                <Button size="s" view="clear" contentLeft={<IconCart/>} text="Корзина"/>
+                <Button size="s" view="clear" contentLeft={<IconCart/>} text="Корзина" onClick={() => console.log(2)}/>
             </Header>
             <ProductCommon
                 actionButtonProps={{
