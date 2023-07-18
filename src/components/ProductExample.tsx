@@ -1,10 +1,11 @@
 import React from 'react';
-import {Button} from "@salutejs/plasma-ui";
-import {Header, Product, ProductEntity} from "@salutejs/plasma-temple";
-import {IconCart} from "@salutejs/plasma-icons";
+import {Header, ProductEntity} from "@salutejs/plasma-temple";
 import {ProductCommon} from "@salutejs/plasma-temple/dist/components/Product/Product@common";
+import {useHistory, useLocation} from "react-router-dom";
 
-const ProductExample = (props:any) => {
+const ProductExample = (props: any) => {
+    const router = useHistory()
+
     const product: ProductEntity<unknown> = {
         id: props.props.id,
         name: props.props.title,
@@ -51,26 +52,28 @@ const ProductExample = (props:any) => {
     }
 
     return (
-        <div className="product-wrapper">
-            <Header back>
-                <Button size="s" view="clear" contentLeft={<IconCart/>} text="Корзина" onClick={() => console.log(2)}/>
-            </Header>
-            <ProductCommon
-                actionButtonProps={{
-                    actionButtonText: 'Добавить в корзину',
-                    onClick: action('onActionButtonClick'),
-                    autoFocus: true,
-                    className: 'small-button',
-                }}
-                variations={variations}
-                onChangeVariation={onChangeVariation}
-                recommendations={{title: 'Похожие товары', items: []}}
-                onClickRecommendation={action('onClickRecommendations')}
-                product={product}
-                defaultImage={props.props.linkImage}
-                className={'product-image'}
-            />
+        <div className="wrapper">
+            <Header back onBackClick={() => router.goBack()}/>
+            <div className="content">
+                <ProductCommon
+                    actionButtonProps={{
+                        actionButtonText: 'Добавить в корзину',
+                        onClick: action('onActionButtonClick'),
+                        autoFocus: true,
+                        className: 'small-button',
+                    }}
+                    variations={variations}
+                    onChangeVariation={onChangeVariation}
+                    recommendations={{ title: 'Похожие товары', items: [] }}
+                    onClickRecommendation={action('onClickRecommendations')}
+                    product={product}
+                />
+                <div className="image-container">
+                    <img src={props.props.linkImage} alt={''} width={600} style={{ borderRadius: '10px' }} />
+                </div>
+            </div>
         </div>
+
     );
 };
 

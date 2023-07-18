@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, CardEntity, ProductImage} from '@salutejs/plasma-temple';
+import {Grid, CardEntity} from '@salutejs/plasma-temple';
 import {
     Button, CardBody,
     CardContent,
@@ -11,6 +11,7 @@ import {
 } from "@salutejs/plasma-ui";
 import '../index.css'
 import {useHistory} from "react-router-dom";
+import PostService from "../API/PostService";
 
 function GenerateItems(props: any) {
     return Array.from(
@@ -18,11 +19,11 @@ function GenerateItems(props: any) {
         (_, index) =>
             ({
                 id: index,
-                name: props.items[index].title,
+                title: props.items[index].title,
+                description: props.items[index].description,
                 image: {src: props.items[index].linkImage},
                 badge: {type: 'accent'},
                 price: props.items[index].price,
-                description: props.items[index].description,
                 weight: props.items[index].weight
             } as CardEntity<number>),
     )
@@ -56,7 +57,7 @@ export function DishesList(props: any) {
                         />
                         <CardContent cover>
                             <TextBox>
-                                <TextBoxBiggerTitle>{item.name}</TextBoxBiggerTitle>
+                                <TextBoxBiggerTitle>{item.title}</TextBoxBiggerTitle>
                                 <TextBoxSubTitle>{item.weight + ' грамм'}</TextBoxSubTitle>
                             </TextBox>
                             <Button
@@ -68,6 +69,9 @@ export function DishesList(props: any) {
                                 stretch
                                 style={{marginTop: '1em'}}
                                 tabIndex={-1}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    PostService.AddDishToCart(props.items[item.id], 1)}}
                             />
                         </CardContent>
                     </CardBody>

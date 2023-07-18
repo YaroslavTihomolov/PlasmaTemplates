@@ -3,6 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import MenuCategory from "../pages/MenuCategory";
 import CategoryDishes from "../pages/CategoryDishes";
 import {DishInfo} from "../pages/DishInfo";
+import Cart from "../pages/Cart";
 
 const AppRouter = () => {
     return (
@@ -15,6 +16,9 @@ const AppRouter = () => {
             </Route>
             <Route exact path="/restaurant/category/dish/:id">
                 <DishInfo/>
+            </Route>
+            <Route exact path="/restaurant/cart">
+                <Cart/>
             </Route>
         </Switch>
     );

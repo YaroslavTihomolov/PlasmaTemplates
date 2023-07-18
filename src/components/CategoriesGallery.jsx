@@ -28,7 +28,7 @@ const CategoriesGallery = (props) => {
                 label: props.items[i].title,
                 name: props.items[i].title,
                 position: i + 1,
-                image: { src: props.items[i].linkImage },
+                image: {src: props.items[i].linkImage},
                 poster: "",
                 rating: '',
                 genre: "fantasy"
@@ -47,13 +47,11 @@ const CategoriesGallery = (props) => {
     }
 
     return (
-        <div>
-            <GalleryPage
-                state={getGalleryState()}
-                onCardClick={(index) => router.push(`restaurant/category/${index.id}`)}
-                changeState={action('change state')}
-            />
-        </div>
+        <GalleryPage
+            state={getGalleryState()}
+            onCardClick={(index) => router.push({ pathname: `restaurant/category/${index.id}`, state: { data: index.name } })}
+            changeState={action('change state')}
+        />
     );
 };
 
