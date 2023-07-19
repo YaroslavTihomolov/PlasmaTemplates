@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Grid, CardEntity} from '@salutejs/plasma-temple';
 import {
     Button, CardBody,
@@ -12,6 +12,7 @@ import {
 import '../index.css'
 import {useHistory} from "react-router-dom";
 import PostService from "../API/PostService";
+import {Counter} from "./Counter";
 
 function GenerateItems(props: any) {
     return Array.from(
@@ -32,6 +33,7 @@ function GenerateItems(props: any) {
 export function DishesList(props: any) {
     const router = useHistory()
 
+    const [array, setArray] = useState(Array(12).fill(1));
     if (props.items.length === 0) {
         return (
             <div className="wrapper">
@@ -49,7 +51,7 @@ export function DishesList(props: any) {
             <Grid columnXL={4} columnM={4} columnS={4}>
                 {items.map((item, index) => (
                     <CardBody
-                        onClick={() => router.push({ pathname: `dish/${item.id}`, state: { data: props.items[item.id] } })}>
+                        onClick={() => router.push({pathname: `dish/${item.id}`, state: {data: props.items[item.id]}})}>
                         <CardMedia
                             src={Array.isArray(item.image.src) ? item.image.src[0] : item.image.src}
                             ratio="1 / 1"
@@ -60,8 +62,9 @@ export function DishesList(props: any) {
                                 <TextBoxBiggerTitle>{item.title}</TextBoxBiggerTitle>
                                 <TextBoxSubTitle>{item.weight + ' грамм'}</TextBoxSubTitle>
                             </TextBox>
+                            <Counter props={[array, setArray, index]}/>
                             <Button
-                                text={item.price + ' ₽'}
+                                text={'Добавить в корзину - ' + item.price * array[index] + ' ₽'}
                                 view="primary"
                                 size="s"
                                 scaleOnInteraction={false}
@@ -71,7 +74,9 @@ export function DishesList(props: any) {
                                 tabIndex={-1}
                                 onClick={(event) => {
                                     event.stopPropagation();
-                                    PostService.AddDishToCart(props.items[item.id], 1)}}
+                                    PostService.AddDishToCart(props.items[item.id], 1, array[index])
+                                    }
+                                }
                             />
                         </CardContent>
                     </CardBody>

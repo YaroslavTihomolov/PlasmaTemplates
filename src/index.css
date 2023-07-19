@@ -33,13 +33,34 @@ code {
   display: flex;
 }
 
+.product-container {
+  flex: 1;
+  margin-right: -200px;
+}
+
+.counter {
+  flex: 1;
+  padding-top: 0;
+  margin-top: 88px;
+  margin-right: 190px;
+}
+
 .image-container {
   flex-grow: 1;
   height: 800px;
   width: 800px;
-  padding-top: -800px;
-  padding-right: 20px;
+  padding-top: 0px;
+}
+
+.cart {
   position: relative;
 }
 
+.cart-phrase {
+  position: absolute;
+  top: 34px;
+  left: 535px;
+  right: 0; /* Здесь вы можете установить желаемое горизонтальное положение */
+  margin: 0; /* Сброс внутренних отступов, если они есть */
+}
 

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Header, ProductEntity} from "@salutejs/plasma-temple";
 import {ProductCommon} from "@salutejs/plasma-temple/dist/components/Product/Product@common";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import {Button} from "@salutejs/plasma-ui";
+import {IconCart} from "@salutejs/plasma-icons";
+import {Counter} from "./Counter";
+import PostService from "../API/PostService";
 
 const ProductExample = (props: any) => {
     const router = useHistory()
+    const [array, setArray] = useState(Array(1).fill(1));
 
     const product: ProductEntity<unknown> = {
         id: props.props.id,
@@ -13,7 +18,7 @@ const ProductExample = (props: any) => {
             title: 'Масса',
             content: props.props.weight + ' грамм',
         },
-        price: props.props.price,
+        price: props.props.price * array[0],
         currency: "rub",
         images: [],
         shortDetails: [],
@@ -53,21 +58,30 @@ const ProductExample = (props: any) => {
 
     return (
         <div className="wrapper">
-            <Header back onBackClick={() => router.goBack()}/>
+            <Header back onBackClick={() => router.goBack()}>
+                <Button size="s" view="clear" contentLeft={<IconCart/>} text="Корзина" onClick={() => router.replace("/restaurant/cart")}/>
+            </Header>
             <div className="content">
-                <ProductCommon
-                    actionButtonProps={{
-                        actionButtonText: 'Добавить в корзину',
-                        onClick: action('onActionButtonClick'),
-                        autoFocus: true,
-                        className: 'small-button',
-                    }}
-                    variations={variations}
-                    onChangeVariation={onChangeVariation}
-                    recommendations={{ title: 'Похожие товары', items: [] }}
-                    onClickRecommendation={action('onClickRecommendations')}
-                    product={product}
-                />
+                <div className="product-container">
+                    <ProductCommon
+                        actionButtonProps={{
+                            actionButtonText: 'Добавить в корзину',
+                            onClick: () => {
+                                PostService.AddDishToCart(props.props, 1, array[0])
+                            },
+                            autoFocus: true,
+                            className: 'small-button',
+                        }}
+                        variations={variations}
+                        onChangeVariation={onChangeVariation}
+                        recommendations={{ title: 'Похожие товары', items: [] }}
+                        onClickRecommendation={action('onClickRecommendations')}
+                        product={product}
+                    />
+                </div>
+                <div className='counter'>
+                    <Counter props={[array, setArray, 0]}/>
+                </div>
                 <div className="image-container">
                     <img src={props.props.linkImage} alt={''} width={600} style={{ borderRadius: '10px' }} />
                 </div>

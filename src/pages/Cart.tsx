@@ -1,91 +1,56 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    AnyObject,
-    CartPage,
     CartProvider, CartState,
-    ProductImage,
-    CartButton,
-    Header
+    CartItemType,
+    CartPage
 } from "@salutejs/plasma-temple";
+import {Container} from '@salutejs/plasma-ui/components/Grid';
+import PostService from "../API/PostService";
 
-import { Button } from '@salutejs/plasma-ui';
-import { Container } from '@salutejs/plasma-ui/components/Grid';
-import {CartItemCaptionType} from "@salutejs/plasma-temple/dist/components/Cart/types";
+function GenerateItems(props: any) {
+    return Array.from(
+        {length: props.items.length},
+        (_, index) =>
+            ({
+                id: props[index].id,
+                name: props[index].title,
+                price: props[index].price,
+                quantity: 1,
+                quantityLimit: 99,
+                imageSrc: props[index].linkImage,
+            } as CartItemType),
+    )
+}
 
-const Cart = () => {
+const Cart = (props: any) => {
+    const [value, setValue] = useState()
+
+    useEffect(() => {
+        console.log(1)
+        PostService.GetCart(1).then((response) => {
+            console.log(response)
+            setValue(response.data)
+        })
+    }, []);
 
     function action(changeState: string) {
         return function () {
         };
     }
 
-    interface Entity<ID = string> {
-        name: string;
-        id: ID;
-    }
-
-    type CartItemType<ID = unknown, T extends AnyObject = AnyObject> = Entity<ID> & T & {
-        /** Количество товара в корзине */
-        quantity: number;
-
-        /** Цена товара */
-        price: number;
-
-        /** Старая цена товара */
-        oldPrice?: number;
-
-        /** Скидка на товар. По умолчанию свойство в компоненте Cart не используется */
-        discount?: number;
-
-        /** Скидка на товар в процентах. По умолчанию свойство в компоненте Cart не используется */
-        percentDiscount?: number;
-
-        /** Используется как метка над именем товара при отображении в корзине */
-        label?: string;
-
-        /**
-         * Используется как подпись позиции товара для указания дополнительной информации,
-         * например скидки, изменении цены
-         */
-        caption?: CartItemCaptionType;
-
-        /**
-         * Используется как дополнительная информация о товаре, обычно для
-         * указания веса, объема, размера
-         */
-        nameDetails?: string;
-
-        /** Ссылка на изоражение товара */
-        imageSrc?: string;
-
-        /** Флаг, указывающий на то, что товар идет в подарок */
-        present?: boolean;
-
-        /** Максимальное количество товара, которое возможно добавить в корзину */
-        quantityLimit?: number;
-
-        /**
-         * Флаг указывающий на недоступность товара для покупки,
-         * в данном случае товар можно только удалить из корзины
-         */
-        disabled?: boolean;
-    };
-
 
     const items: CartItemType[] = [
         {
             id: '1',
-            label: 'Продукты',
             name: 'Молоко Parmalat ультрапастеризованное длинное название',
-            nameDetails: '1л',
             price: 68,
             oldPrice: 99,
             quantity: 99,
             quantityLimit: 99,
             imageSrc: 'images/img.png',
             caption: {
-                type: 'sale',
-                content: '31',
+                type: 'present',
+                content: 'Общее количество: ' + 99,
             },
         },
         {
@@ -155,35 +120,18 @@ const Cart = () => {
 
 
     return (
-        <div className="wrapper">
-            <div>
-
-                <Container>
-                    <Header
-                        logo='https://i.ibb.co/TcXZDMq/Group-154.png'
-                        logoAlt="Rina"
-                        title="Rina"
-                        subtitle="&ensp;Цифровой официант"
-                    >
-                        <Button>Меню</Button>
-
-                    </Header>
-                </Container>
-
-
-                <Container>
-                    <CartProvider initialState={initialState} onChangeCart={action('onChangeCart')}>
-                        <CartPage onMakeOrder={action('onMakeOrder')} header={{ title: 'Корзина' }}>
-                            Заполняя эту форму вы соглашаетесь с условиями политики сервиса
-                        </CartPage>
-                    </CartProvider>
-                </Container>
-
-                <ProductImage src='C:\Users\я\WebstormProjects\tsreact\src\img\Group 213 (1).svg'/>
-
-            </div>
+        <div className='cart'>
+            <Container>
+                <CartProvider initialState={initialState} onChangeCart={action('onChangeCart')}>
+                    <CartPage onMakeOrder={action('onMakeOrder')} header={{title: 'Корзина'}}>
+                        Заполняя эту форму вы соглашаетесь с условиями политики сервиса
+                    </CartPage>
+                </CartProvider>
+            </Container>
+            <h3 className='cart-phrase'>
+                Количество к оплате:
+            </h3>
         </div>
-
     );
 };
 

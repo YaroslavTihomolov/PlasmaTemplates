@@ -47,11 +47,17 @@ const CategoriesGallery = (props) => {
     }
 
     return (
-        <GalleryPage
-            state={getGalleryState()}
-            onCardClick={(index) => router.push({ pathname: `restaurant/category/${index.id}`, state: { data: index.name } })}
-            changeState={action('change state')}
-        />
+        <>
+            <h1>Категории:</h1>
+            <GalleryPage
+                state={getGalleryState()}
+                onCardClick={(index) => router.push({
+                    pathname: `restaurant/category/${index.id}`,
+                    state: {data: index.name}
+                })}
+                changeState={action('change state')}
+            />
+        </>
     );
 };
 

@@ -4,6 +4,7 @@ import MenuCategory from "../pages/MenuCategory";
 import CategoryDishes from "../pages/CategoryDishes";
 import {DishInfo} from "../pages/DishInfo";
 import Cart from "../pages/Cart";
+import SelfCart from "../pages/Cart";
 
 const AppRouter = () => {
     return (
@@ -18,7 +19,7 @@ const AppRouter = () => {
                 <DishInfo/>
             </Route>
             <Route exact path="/restaurant/cart">
-                <Cart/>
+                <SelfCart/>
             </Route>
         </Switch>
     );
