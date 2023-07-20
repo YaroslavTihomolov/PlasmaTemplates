@@ -2,6 +2,7 @@ import React from 'react';
 import {GalleryPage} from "@salutejs/plasma-temple";
 import {useHistory} from "react-router-dom";
 import {Spinner} from "@salutejs/plasma-ui";
+import urljoin from 'url-join';
 
 
 const CategoriesGallery = (props) => {
@@ -46,15 +47,20 @@ const CategoriesGallery = (props) => {
         };
     }
 
+    const onCardClick = (index) => {
+        const newPath = urljoin('/restaurant/category', index.id);
+        router.replace({
+            pathname: newPath,
+            state: { data: index.name }
+        });
+    };
+
     return (
         <>
             <h1>Категории:</h1>
             <GalleryPage
                 state={getGalleryState()}
-                onCardClick={(index) => router.push({
-                    pathname: `restaurant/category/${index.id}`,
-                    state: {data: index.name}
-                })}
+                onCardClick={(index) => onCardClick(index)}
                 changeState={action('change state')}
             />
         </>

@@ -13,6 +13,8 @@ import '../index.css'
 import {useHistory} from "react-router-dom";
 import PostService from "../API/PostService";
 import {Counter} from "./Counter";
+import Notify from "./Notify";
+import {addNotification, NotificationsProvider} from "@salutejs/plasma-web";
 
 function GenerateItems(props: any) {
     return Array.from(
@@ -33,6 +35,14 @@ function GenerateItems(props: any) {
 export function DishesList(props: any) {
     const router = useHistory()
 
+    const handleClick = React.useCallback((name: string, count: number) => {
+        addNotification({
+            status: 'success',
+            title: name + ' ' + count + 'x добавлен(ы) в корзину',
+            children: '',
+        }, 3000);
+    }, []);
+
     const [array, setArray] = useState(Array(12).fill(1));
     if (props.items.length === 0) {
         return (
@@ -44,7 +54,6 @@ export function DishesList(props: any) {
 
     const items = GenerateItems(props)
 
-    console.log(items)
 
     return (
         <div>
@@ -63,21 +72,24 @@ export function DishesList(props: any) {
                                 <TextBoxSubTitle>{item.weight + ' грамм'}</TextBoxSubTitle>
                             </TextBox>
                             <Counter props={[array, setArray, index]}/>
-                            <Button
-                                text={'Добавить в корзину - ' + item.price * array[index] + ' ₽'}
-                                view="primary"
-                                size="s"
-                                scaleOnInteraction={false}
-                                outlined={false}
-                                stretch
-                                style={{marginTop: '1em'}}
-                                tabIndex={-1}
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    PostService.AddDishToCart(props.items[item.id], 1, array[index])
+                            <NotificationsProvider>
+                                <Button
+                                    text={'Добавить в корзину - ' + item.price * array[index] + ' ₽'}
+                                    view="primary"
+                                    size="s"
+                                    scaleOnInteraction={true}
+                                    outlined={false}
+                                    stretch
+                                    style={{marginTop: '1em'}}
+                                    tabIndex={-1}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        PostService.AddDishToCart(props.items[item.id], 1, array[index])
+                                        handleClick(item.title, array[index])
                                     }
-                                }
-                            />
+                                    }
+                                />
+                            </NotificationsProvider>
                         </CardContent>
                     </CardBody>
                 ))}

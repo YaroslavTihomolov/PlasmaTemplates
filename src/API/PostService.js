@@ -26,6 +26,9 @@ export default class PostService {
 
     static async GetCart(tableId) {
         const data = {key: "value"};
-        return await axios.get(`http://localhost:8080/restaurant/cart/${tableId}`, {params: data});
+        console.log("tableId" + tableId)
+        const value = await axios.get(`http://localhost:8080/restaurant/cart/1`, {params: data});
+        console.log(value)
+        return value
     }
 }

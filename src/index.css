@@ -1,66 +1,167 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .wrapper {
-  width: 1280px;
-  margin: 50px auto;
-  min-height: 100vh;
-  height: auto;
+    width: 1280px;
+    margin: 50px auto;
+    min-height: 100vh;
+    height: auto;
 }
 
 .card {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 
 .small-button {
-  padding-left: 5px;
-  position: relative;
+    padding-left: 5px;
+    position: relative;
 }
 
 
 .content {
-  display: flex;
+    display: flex;
 }
 
 .product-container {
-  flex: 1;
-  margin-right: -200px;
+    flex: 1;
+    margin-right: -200px;
 }
 
 .counter {
-  flex: 1;
-  padding-top: 0;
-  margin-top: 88px;
-  margin-right: 190px;
+    flex: 1;
+    padding-top: 0;
+    margin-top: 88px;
+    margin-right: 190px;
 }
 
 .image-container {
-  flex-grow: 1;
-  height: 800px;
-  width: 800px;
-  padding-top: 0px;
+    flex-grow: 1;
+    height: 800px;
+    width: 800px;
+    padding-top: 0px;
 }
 
 .cart {
-  position: relative;
+    position: relative;
 }
 
 .cart-phrase {
-  position: absolute;
-  top: 34px;
-  left: 535px;
-  right: 0; /* Здесь вы можете установить желаемое горизонтальное положение */
-  margin: 0; /* Сброс внутренних отступов, если они есть */
+    position: absolute;
+    top: 34px;
+    left: 535px;
+    right: 0; /* Здесь вы можете установить желаемое горизонтальное положение */
+    margin: 0; /* Сброс внутренних отступов, если они есть */
 }
 
+.cart-check-box {
+    display: flex;
+}
+
+.checkbox-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.checkbox-item {
+    display: flex;
+    gap: 10px;
+}
+
+.cart-item-list {
+    margin-left: 20px;
+    width: 1040px;
+}
+
+.count-list {
+    margin-top: -1px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.count-list h4 {
+    margin-bottom: 20px;
+}
+
+/* CustomCartItem.css */
+
+.custom-cart-item {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-item-image img {
+    max-width: 80px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Размещаем элементы вертикально */
+    margin-top: 15px;
+}
+
+.cart-item-name {
+    font-size: 16px;
+    margin-bottom: 3px; /* Уменьшаем вертикальный отступ */
+}
+
+.cart-item-price {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 3px; /* Уменьшаем вертикальный отступ */
+}
+
+.cart-item-quantity {
+    font-size: 14px;
+    color: #888;
+}
+
+.caption {
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.caption-success {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.caption-warning {
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+}
+
+.caption-error {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.summary-count {
+    margin-top: 22px;
+    margin-left: 5px;
+    color: #57af7b;
+}
+
+.item-price {
+    opacity: 0.6;
+}

@@ -12,9 +12,7 @@ function MenuCategory() {
     }, []);
 
     return (
-        <div className='wrapper'>
-            <CategoriesGallery items={items}/>
-        </div>
+        <CategoriesGallery items={items}/>
     );
 };
 

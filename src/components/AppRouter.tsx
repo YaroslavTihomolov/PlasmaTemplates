@@ -3,8 +3,8 @@ import {Route, Switch} from "react-router-dom";
 import MenuCategory from "../pages/MenuCategory";
 import CategoryDishes from "../pages/CategoryDishes";
 import {DishInfo} from "../pages/DishInfo";
-import Cart from "../pages/Cart";
-import SelfCart from "../pages/Cart";
+import Pay from "../pages/Pay";
+import Cart1 from "../pages/Cart1";
 
 const AppRouter = () => {
     return (
@@ -19,7 +19,10 @@ const AppRouter = () => {
                 <DishInfo/>
             </Route>
             <Route exact path="/restaurant/cart">
-                <SelfCart/>
+                <Cart1/>
+            </Route>
+            <Route exact path="/restaurant/cart/pay">
+                <Pay/>
             </Route>
         </Switch>
     );
