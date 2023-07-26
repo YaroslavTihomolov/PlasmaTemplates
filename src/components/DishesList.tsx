@@ -13,7 +13,6 @@ import '../index.css'
 import {useHistory} from "react-router-dom";
 import PostService from "../API/PostService";
 import {Counter} from "./Counter";
-import Notify from "./Notify";
 import {addNotification, NotificationsProvider} from "@salutejs/plasma-web";
 
 function GenerateItems(props: any) {
@@ -84,7 +83,7 @@ export function DishesList(props: any) {
                                     tabIndex={-1}
                                     onClick={(event) => {
                                         event.stopPropagation();
-                                        PostService.AddDishToCart(props.items[item.id], 1, array[index])
+                                        PostService.AddDishToCart(props.items[item.id], null, 1, array[index])
                                         handleClick(item.title, array[index])
                                     }
                                     }

@@ -3,11 +3,12 @@ import PostService from "../API/PostService";
 import {Cart2} from "../components/Cart2";
 
 function Cart1() {
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState(null);
 
     useEffect(() => {
         PostService.GetCart(1).then((response) => {
             setItems(response.data)
+            console.log(response.data)
         })
     }, []);
 

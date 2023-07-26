@@ -6,10 +6,19 @@ import {Button} from "@salutejs/plasma-ui";
 import {IconCart} from "@salutejs/plasma-icons";
 import {Counter} from "./Counter";
 import PostService from "../API/PostService";
+import {addNotification, NotificationsProvider} from "@salutejs/plasma-web";
 
 const ProductExample = (props: any) => {
     const router = useHistory()
     const [array, setArray] = useState(Array(1).fill(1));
+
+    const handleClick = React.useCallback((name: string, count: number) => {
+        addNotification({
+            status: 'success',
+            title: name + ' ' + count + 'x добавлен(ы) в корзину',
+            children: '',
+        }, 3000);
+    }, []);
 
     const product: ProductEntity<unknown> = {
         id: props.props.id,
@@ -63,21 +72,24 @@ const ProductExample = (props: any) => {
             </Header>
             <div className="content">
                 <div className="product-container">
-                    <ProductCommon
-                        actionButtonProps={{
-                            actionButtonText: 'Добавить в корзину',
-                            onClick: () => {
-                                PostService.AddDishToCart(props.props, 1, array[0])
-                            },
-                            autoFocus: true,
-                            className: 'small-button',
-                        }}
-                        variations={variations}
-                        onChangeVariation={onChangeVariation}
-                        recommendations={{ title: 'Похожие товары', items: [] }}
-                        onClickRecommendation={action('onClickRecommendations')}
-                        product={product}
-                    />
+                    <NotificationsProvider>
+                        <ProductCommon
+                            actionButtonProps={{
+                                actionButtonText: 'Добавить в корзину',
+                                onClick: () => {
+                                    PostService.AddDishToCart(props.props, 1, array[0])
+                                    handleClick(props.props.title, array[0])
+                                },
+                                autoFocus: true,
+                                className: 'small-button',
+                            }}
+                            variations={variations}
+                            onChangeVariation={onChangeVariation}
+                            recommendations={{ title: 'Похожие товары', items: [] }}
+                            onClickRecommendation={action('onClickRecommendations')}
+                            product={product}
+                        />
+                    </NotificationsProvider>
                 </div>
                 <div className='counter'>
                     <Counter props={[array, setArray, 0]}/>

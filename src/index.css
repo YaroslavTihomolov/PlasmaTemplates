@@ -12,11 +12,22 @@ code {
     monospace;
 }
 
+.menu-header {
+    z-index: 1;
+    position: absolute;
+}
+
+.menu-body {
+    z-index: 999;
+    position: relative;
+}
+
 .wrapper {
     width: 1280px;
-    margin: 50px auto;
+    margin: 30px auto;
     min-height: 100vh;
     height: auto;
+    position: relative;
 }
 
 .card {
@@ -69,7 +80,7 @@ code {
 }
 
 .checkbox-list {
-    margin-top: 40px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     gap: 23px;
@@ -157,11 +168,30 @@ code {
 }
 
 .summary-count {
-    margin-top: 22px;
+    margin-top: 14px;
     margin-left: 5px;
     color: #57af7b;
 }
 
 .item-price {
     opacity: 0.6;
+}
+
+.cart-data {
+    margin-top: 50px;
+}
+
+.solo-counter {
+    margin-top: 30px;
+}
+
+.bPxPvv {
+    top: 120px !important;
+}
+
+.white-stripe {
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    margin-bottom: 7px;
 }
