@@ -13,7 +13,7 @@ function Cart1() {
     }, []);
 
     return (
-        <Cart2 items={items}/>
+        <Cart2/>
     )
 }
 
